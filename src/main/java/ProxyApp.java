@@ -37,12 +37,19 @@ public class ProxyApp {
             String fip = driver.findElements(By.tagName("pre")).get(0).getText();
             if (fip.compareTo(rip) == 0) {
                 throw new Exception("ERR_PROXY_CONNECTION_FAILED");
+            } else {
+                JavascriptExecutor js = (JavascriptExecutor) driver;
+                js.executeScript("alert(\"PROXY_CONNECTION_SUCCESS\");");
             }
         } catch (Exception e) {
             JavascriptExecutor js = (JavascriptExecutor) driver;
-            js.executeScript("alert('ERR_PROXY_CONNECTION_FAILED')");
+            String message = e.getMessage();
+            System.out.println(e.getMessage());
+            js.executeScript("alert(\"ERR_PROXY_CONNECTION_FAILED\");");
             return -1;
         }
         return 0;
     }
+
+
 }
